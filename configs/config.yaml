@@ -1,0 +1,73 @@
+# CNC Tool Wear Digital Twin Configuration
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  incoming_dir: "data/incoming"
+  final_results_dir: "data/final_results"
+
+model:
+  registry_dir: "models/registry"
+  current_dir: "models/current"
+  features:
+    - fx_mean
+    - fx_rms
+    - fx_std
+    - fx_min
+    - fy_mean
+    - fy_rms
+    - fy_std
+    - fy_min
+    - fz_mean
+    - fz_rms
+    - fz_std
+    - fz_min
+    - spindle_torque_mean
+    - spindle_torque_rms
+    - spindle_torque_std
+    - spindle_torque_min
+    - deviation_x_mean
+    - deviation_x_rms
+    - deviation_x_min
+    - deviation_y_mean
+    - deviation_y_rms
+    - deviation_y_min
+    - contact_time
+  target: wear
+  hyperparameters:
+    n_estimators: 800
+    max_depth: 30
+    max_features: 0.7
+    min_samples_split: 2
+    min_samples_leaf: 1
+    bootstrap: false
+    random_state: 42
+    n_jobs: -1
+
+training:
+  machines: [1, 2]
+
+calibration:
+  tools: [7, 8]
+
+live:
+  machine: 3
+  tool: 9
+
+digital_twin:
+  eol:
+    dataset_supported: 150
+    extrapolated: 300
+  rolling_window_samples: 50  # For rolling degradation rate
+  simulation_delay_seconds: 0.05
+
+evaluation:
+  high_wear_threshold: 140
+  promotion_criteria:
+    max_mae_degradation_pct: 5
+    require_better_high_wear_bias: true
+
+retraining:
+  enabled: true
+  interval_days: 7
+  minimum_new_samples: 500

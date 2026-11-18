@@ -1,0 +1,30 @@
+# === Secrets — NEVER commit ===
+.streamlit/secrets.toml
+
+# === Python virtual environments ===
+venv/
+.venv/
+
+# === Python cache ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# === Jupyter checkpoints ===
+.ipynb_checkpoints/
+
+# === Large data, model & cache folders (4.4 GB — not for git) ===
+data/
+dataset/
+models/
+catboost_info/
+
+# === Scratch / dev files ===
+test.ipynb
+cells.txt
+
+# === OS files ===
+.DS_Store
+Thumbs.db
